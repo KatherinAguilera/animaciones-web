@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Laberinto</title>
+	
+
+	<style>
+		body{
+			background: peru;
+			margin:0;
+		}
+
+		.container1 {
+			background: white;
+			border: 5px solid black;
+			width: 100%;
+			height: 100px;
+		}
+
+		.container2 {
+			background: white;
+			border: 5px solid black;
+			width: 100px;
+			height: 200px;
+			position: absolute;
+			right: 0;
+			top:105px;
+			border-top: 5px solid white;
+			border-bottom: 5px solid white;
+			z-index: 2;
+
+
+
+		}
+
+		.container1.b {
+			position: absolute;
+			top:309px;
+		}
+
+
+		.container2.b {
+			position: absolute;
+			left: 0;
+			top:413px;
+			height: 135px;
+			z-index: 2;
+			
+		}
+
+		.container1.c {
+			position: absolute;
+			bottom: 0;
+		}
+
+
+		.bola {
+			height: 90px;
+			width: 90px;
+			background: green;
+			border-radius: 50%;
+			margin: 2px 2px;
+			position: relative;
+			z-index: 3;
+
+		}
+
+
+		.container1 .bola {
+			animation: mov1;
+			animation-duration: 1s;
+			animation-fill-mode: forwards;
+
+
+		}
+
+		@keyframes mov1 {
+			0% {
+				left:0;
+			}
+
+			100% {
+				left: calc(100% - 105px);
+			}
+		}
+
+		@keyframes mov2 {
+			0% {
+				transform:translateY(0px);
+			}
+
+			100% {
+				transform:translateY(315px);
+			}
+		}
+
+		@keyframes mov3 {
+			0% {
+				left: calc(100% - 105px);
+			}
+
+			100% {
+				left:0;
+			}
+		}
+
+		@keyframes mov4 {
+			0% {
+				transform:translateY(0);
+			}
+
+			100%{
+				
+				transform:translateY(240px);
+			}
+
+		}
+
+		@keyframes mov5 {
+			0% {
+				top:555px;
+				left:0;
+			}
+
+			100% {
+				top: 555px;
+				left: calc(100% - 105px);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container1">
+		<div class="bola" id="bola">
+			
+		</div>
+	</div>
+
+	<div class="container2">
+		
+	</div>
+
+	<div class="container1 b">
+		
+	</div>
+
+	<div class="container2 b">
+		
+	</div>
+
+	<div class="container1 c">
+
+	</div>
+
+
+	<script>
+		
+	const $bola = document.getElementById('bola');
+
+		$bola.addEventListener('animationend', (event) => {
+			console.log(event.animationName);
+			if(event.animationName === 'mov1') {
+
+				$bola.style.animationName = 'mov2';
+				// $bola.style.animationDuration ='3s';
+				$bola.style.left = 'calc(100% - 105px)';	
+			}
+			else if(event.animationName === 'mov2') {
+				$bola.style.animationName = 'mov3';
+				// $bola.style.animationDuration ='3s';
+
+				$bola.style.left = 'calc(100% - 105px)';
+				$bola.style.top = '315px';
+
+
+			}
+			else if(event.animationName === 'mov3'){
+				$bola.style.animationName = 'mov4';
+				// $bola.style.left = '0';
+
+				$bola.style.left = '0';
+				$bola.style.top = '315px';	
+
+
+			}
+			else if(event.animationName === 'mov4'){
+				$bola.style.animationName = 'mov5';
+			}
+			
+
+			
+
+		});
+
+	</script>
+	
+</body>
+</html>

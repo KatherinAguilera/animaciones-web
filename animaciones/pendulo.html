@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Pendulo</title>
+
+	<style>
+		body{
+			margin: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+		.contenedor{
+			border-top: 2px solid #969871;
+			width: 365px;
+			position: relative;
+
+		}
+		.pendulo{
+			margin: 0px 20px 20px 20px;
+			width: 4px;
+			height: 150px;
+			background: #acabb1;
+
+			transform-origin: 50% 0%;
+			position: relative;
+
+			animation-iteration-count: infinite;
+			animation-duration: 1.5s;
+			animation-direction: alternate;
+			animation-timing-function: ease-in-out;
+		}
+		.pendulo.a{
+			animation-name: pendulo-izquierdo;
+		}
+		.pendulo.b{
+			animation-name: pendulo-derecho;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+
+		.pelota{
+
+			height: 20px;
+			width: 20px;
+			border-radius: 50%;
+			background: #1c3643;
+			position: absolute;
+			bottom: -10px;
+			left: -8px;
+		}
+		@keyframes pendulo-izquierdo{
+			0%{
+				transform: rotateZ(-85deg);
+			}
+			100%{
+				transform: rotateZ(85deg);
+			}
+		}
+		@keyframes pendulo-derecho{
+			0%{
+				transform: rotateZ(85deg);
+			}
+			100%{
+				transform: rotateZ(-85deg);
+			}
+		}
+	</style>
+
+</head>
+<body>
+	<div  class="contenedor">
+		<div  class="pendulo a">
+			<div  class="pelota"></div  >
+		</div  >
+
+		<div class="pendulo b">
+			<div class="pelota"></div >
+		</div >
+	</div>
+</body>
+</html>

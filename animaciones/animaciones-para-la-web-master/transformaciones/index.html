@@ -1,0 +1,73 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Transiciones CSS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <style>
+    body {
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+    .pelota {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      font-family: 'Roboto';
+      /*background-color: red;*/
+
+      /*Aplicamos transiciones en el cambio de tamaño de la pelota: indicamos a qué propiedades afecta la transición*/
+      /*transition-property: width, height; /*Esto se pddria comentar y funcionaría igual*/
+      /*Indicamos el tiempo que dura la transición*/
+      /*transition-duration: 1s;
+      /*Indicamos el tiempo que tarda en ocurrir la transición*/
+      /*transition-delay: 0.5s;
+      /*Indicamos la aceleración de la transición*/
+      /*transition-timing-function: ease;
+      /*También se puede representar en una sola línea*/
+      transition: 1s;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pelota.a {
+      background-color: red;
+      left: 0;
+    }
+
+    .pelota.b {
+      background-color: yellow;
+      right: 0;
+    }
+    /* Cambiamos el tamaño de la pelota al colocar el cursor encima (hover)*/
+    .canasta {
+      border: 1px solid red;
+      position: relative;
+      height: 100px;
+      width: 100%;
+      /*transform: rotar | sesgar | posicion | tamaño;*/
+      transform: rotate(5deg) skew(10seg) translate(100px) scale(1.5);
+    }
+
+    .canasta:hover .pelota.a{
+      left: calc(50% - 100px);
+    }
+
+    .canasta:hover .pelota.b{
+      right: calc(50% - 100px);
+    }
+  </style>
+</head>
+<body>
+  <div class="canasta">
+      <div class="pelota a">Hello</div>
+      <div class="pelota b">World!</div>
+  </div>
+</body>
+</html>

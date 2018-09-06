@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Animaciones</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
+  <style>
+    body {
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      border: 1px solid grey;
+      background-color: #6285fb;
+      background-image: url("imgs/mario-background.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .mario{
+      position: relative;
+      width: 145px;
+      height: 135px;
+      top: 650px;
+
+      /* animation-delay: 1s; */
+      animation-name: mario-walking;
+      /* forwards: Mantiene el estado final de una animación*/
+      animation-fill-mode: forwards;
+      animation-iteration-count: 1;
+      animation-timing-function: linear;
+      animation-duration: 4s;
+    }
+
+    .dead {
+      position: relative;
+      width: 145px;
+      height: 135px;
+      top: 650px;
+
+      /* animation-delay: 1s; */
+      animation-name: mario-dead;
+      /* forwards: Mantiene el estado final de una animación*/
+      animation-fill-mode: both;
+      animation-iteration-count: 1;
+      animation-timing-function: linear;
+      animation-duration: 0.7s;
+    }
+
+    /* 1er paso*/
+    @keyframes mario-walking {
+      from {
+        transform: translateX(-200px);
+      }
+      to {
+        transform: translateX(700px);
+      }
+    }
+    
+    /* 2º paso*/
+    @keyframes mario-dead {
+      0% {
+        transform: translateY(-200px);
+      }
+      50% {
+        transform: translateY(-300px);
+      }
+      100% {
+        transform: translateY(600px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="mario" id="mario" src="imgs/mario-running.gif"/>
+  </div>
+  <script>
+    const mario = document.getElementById("mario");
+    
+    mario.addEventListener('animationend', (event) => {
+      console.log('animationend');
+      if (event.animationName === 'mario-walking') {
+        console.log('KEEP-WALKING -> DEAD');
+        mario.src = "imgs/mario-dead.png";
+        mario.style.animationName = 'mario-dead';
+        mario.style.animationFillMode = 'forwards'
+        mario.style.width = '145px';
+        mario.style.width = '135px';
+        mario.style.animationDuration = '0.7s';
+        mario.style.animationIterationCount = '1';
+        mario.style.animationTimingFunction = 'linear';
+      }
+    });
+    
+  </script>
+</body>
+</html>

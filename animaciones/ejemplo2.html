@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Cuadro 3d</title>
+	<style>
+
+		body {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			color: white;
+			font-family: Arial;
+		}
+		.principal {
+			border: 10px solid black;
+			height: 500px;
+			width: 300px;
+			-webkit-perspective: 700px;
+		}
+
+		.contenedor {
+			height: 100%; /*100% de su padre el div principal*/
+			height: 100%;
+			transform-style: preserve-3d;
+			transition: 2s;
+		}
+
+		.principal:hover .contenedor{
+			transform: rotateX(180deg); /*Voltearse*/
+		}
+
+		.cuadrado {
+			height: 100%;
+			width: 100%;
+			backface-visibility: hidden; /*Ocultar el lado de atras de un elemento*/
+			position: absolute;
+		}
+
+		.frente {
+			background: blue;
+      border-bottom: 10px solid blue;
+		}
+
+		.espalda {
+			background: #1dc900;
+			transform: rotateX(180deg);
+		}
+	</style>
+</head>
+<body>
+	<div class="principal">
+		<div class="contenedor">
+			<div class="cuadrado frente">Cuadrado 1</div>
+			<div class="cuadrado espalda">Cuadrado 2</div>
+		</div>
+	</div>
+</body>
+</html>

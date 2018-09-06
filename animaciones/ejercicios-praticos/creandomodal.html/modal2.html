@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Animaciones de entrada y salida</title>
+    <style media="screen">
+      body {
+        margin: 0;
+        display: flex;
+        /*height: 100vh;*/
+        align-items: center;
+        justify-content: center;
+        font-family: Arial;
+        flex-direction: column;
+      }
+      .top {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        /*border: 1px solid red;*/
+        height: 293px;
+        visibility: hidden;
+      }
+      .top.active {
+        visibility: visible;
+        cursor: pointer;
+      }
+      .btn {
+        text-align: center;
+        padding: .6em .8em .8em;
+        border: none;
+        color: white;
+        background: lightgrey;
+        margin: 5px;
+        border-radius: 6px;
+        cursor: pointer;
+        box-shadow: inset 0 -.2em rgba(0, 0, 0, 0.2);
+        transition: .3s;
+        outline: 0;
+        will-change: transform;
+      }
+      .btn:active{
+        transform: scale(.9);
+      }
+      .btn.primary {
+        background: #7dc800;
+      }
+      .btn.warning {
+        background: #ff463b;
+      }
+      .overlay {
+        background: rgba(0, 0, 0, 0.7);
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: .5s ease-in;
+        transition-delay: .3s;
+      }
+      .overlay.active{
+        opacity: 1;
+        visibility: visible;
+      }
+      .modal {
+        /*width: 200px;*/
+        /*height: 250px;*/
+        width: 500px;
+        background: rgba(255, 255, 255, .8);
+        padding: 2em;
+        border-radius: .5em;
+        text-align: center;
+        position: relative;
+      }
+      .modal-close{
+        padding: .4em .4em .5em;
+        border-radius: 50%;
+        border: 3px solid currentcolor;
+        color: #ff463b;
+        position: absolute;
+        right: 11px;
+        top: 10px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.5em;
+        line-height: .5em;
+        cursor: pointer;
+      }
+      .modal.in{
+        animation: modalIn .8s forwards;
+        animation-delay: .3s;
+      }
+      .modal.out{
+        animation: modalOut .8s forwards;
+      }
+      /*@keyframes animationIn {*/
+      @keyframes modalIn {
+        0% {
+          transform: translateY(-3000px);
+        }
+        60% {
+          transform: translateY(25px);
+        }
+        75% {
+          transform: translateY(-10px);
+        }
+        90% {
+          transform: translateY(5px);
+        }
+      }
+      /*@keyframes animationOut {*/
+      @keyframes modalOut {
+        0% {
+          transform: translateY(5px);
+        }
+        60% {
+          transform: translateY(-10px);
+        }
+        75% {
+          transform: translateY(25px);
+        }
+        100% {
+          transform: translateY(-3000px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <img src="platzi.png" alt="">
+    <div id="top" class="top active"></div>
+    <div class="overlay" id="overlay">
+      <div class="modal" id="modal">
+        <h1>Atención!</h1>
+        <p>Estás a punto de crear una ventana de modal</p>
+        <p>Te gustó?</p>
+        <div id="modal-buttons" class="modal-buttons">
+          <button class="btn primary" id="hide-modal"> Sí, está chido</button>
+          <button class="btn warning">No, :(</button>
+        </div>
+        <div id="modal-close" class="modal-close">x</div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      const $hideButton = document.getElementById('hide-modal');
+      const $modal = document.getElementById('modal');
+      const $overlay = document.getElementById('overlay');
+      const $top = document.getElementById('top');
+      const $modalClose = document.getElementById('modal-close');
+      // const $body = document.body;
+      function botones() {
+        //activar boton para que obtenga las propiedades
+          $hideButton.addEventListener('click', (event) => {
+            // console.log(event);
+            //al activar clic llamar el keyframes modalOut
+            $modal.style.animation = 'modalOut .8s forwards';
+            //remover la clase de overlay active
+            $overlay.classList.remove('active');
+        });
+      }botones();
+
+      function show(){
+      $top.addEventListener('click', (event)=>{
+        // console.log(event);
+        $overlay.classList.add('active');
+        $modal.className = 'modal in';
+        $modal.style.animation = 'modalIn .8s alternate';
+      });
+    }show();
+
+      $modalClose.addEventListener('click', (event)=>{
+        $overlay.classList.remove('active');
+        $modal.className = "modal out";
+        $modal.style.animation = 'modalOut .3s forwards';
+      });
+
+      $overlay.addEventListener('click', (event) => {
+        const flyoutModal = document.getElementById("modal");
+        const buttonsModal = document.getElementById('modal-buttons');
+        let targetElement = event.target;
+        if (targetElement == flyoutModal || targetElement.parentNode == flyoutModal || targetElement.parentNode == buttonsModal) {
+          console.log('dentro');
+          console.log(event);
+        } else {
+          console.log('fuera');
+          console.log(event);
+          $overlay.classList.remove('active');
+          $modal.className = "modal out";
+        }
+      });
+    </script>
+  </body>
+</html>

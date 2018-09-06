@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<title>Juego Ball</title>
+</head>
+<style>
+	body *{
+		margin: 0px;
+		padding: 0px;
+	}
+	#canvas-basic {
+		    position: absolute;
+		    display: block;
+		    width: 100%;
+		    height: 100%;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		}
+
+	body{
+
+		/*background: -webkit-linear-gradient( 60deg, #08227A 0%, #0D37C6 20%, #354A90 40%, #087A6D 80%, #269084 90%);
+		background: -o-linear-gradient( 60deg, #08227A 0%, #0D37C6 20%, #354A90 40%, #087A6D 80%, #269084 90%);
+		background: linear-gradient( 60deg, #08227A 0%, #0D37C6 20%, #354A90 40%, #087A6D 80%, #269084 90%);;*/
+		/*background: -webkit-linear-gradient(290deg, blue 0%, red 30%, green 80%, yellow 100%);
+		background: -o-linear-gradient(290deg, blue 0%, red 30%, green 80%, yellow 100%);*/
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+	}
+	header{
+		text-align: center;
+		width: 100%;
+		height: 100px;
+	}
+	header h1 {
+		position: relative;
+		margin-left: 80px;
+	}
+	
+	.contenedor{
+		z-index: 60;
+		margin: 0px;
+		padding: 0px;
+		width: 300px;
+		height: 300px;
+		margin-left: 100px;
+		background-color: #005E4F;
+		border: 3px solid black;
+		position: relative;
+		transform-style: preserve-3d;
+		transform: rotateX(-6deg)
+					rotateY(-5deg);
+		-webkit-backface-visibility:visible;
+		perspective-origin: 50% 100%;
+		perspective: 9000px; 
+	}
+	.contenedor .contador{
+		position: absolute;
+		top: 40%;
+		left: 35%;
+		width: 25%;
+		height: 30%;
+		border: 3px dotted #999999;
+		border-radius: 50%;
+		opacity: 0;
+	}
+	.contador.count{
+		animation: .6s numero 1;
+	}
+	
+	.contador.count:before{
+		content: attr(data-count);
+		position: absolute;
+		top: 0%;
+		left: 25%;
+		font-size: 500%;
+		color: #999999;
+	}
+	.contador.animacion{
+		animation: .6s numero 1;
+	}
+	@keyframes numero {
+		from{
+			opacity: 0;
+			transform: scale(.3);
+		}
+		80%{
+			transform: scale(1.2);
+		}
+		/*98%{
+			opacity: 1;
+			transform: scale(1);
+		}*/
+		to{
+			border: 4px dotted #999999;
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+	
+	.contenedor.pers1{
+		transition-duration: 1.8s;
+		perspective: 20000px;
+	}
+	.contenedor.pers2{
+		transition-duration: .4s;
+		perspective: 1600px;
+	}
+	.contenedor.pers3{
+		transition-duration: .5s;
+		perspective: 650px;
+	}
+	.contenedor .ladosCubo{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		border: 2px solid black;
+	}
+	
+	 /*Fondo*/
+	.ladosCubo:nth-of-type(1){
+		transform: translateZ(800px);
+		box-shadow: 0px 0px 20px black;
+		background-color: transparent;
+	}
+	 /*Abajo*/
+	.ladosCubo:nth-of-type(2){
+		height: 800px;
+		transform: translateZ(400px)
+					translateY(-100px)
+					rotateX(90deg);
+		/*background-color: rgba(91,31,20,1);*/
+		display: inline-flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		align-items: stretch;
+	}
+	.ladosCubo .suelo{
+		position: relative;
+		width: 33%;
+		height: 99px;
+		border: .5px solid black;
+	}
+	.ladosCubo .suelo.black{
+		background: -webkit-radial-gradient( 
+				center,
+				black 0%,
+				#666666 90%,
+				#999999 95% );
+	}
+	.ladosCubo .suelo.white{
+		background: -webkit-radial-gradient( 
+				center,
+				white 0%,
+				#999999 90%,
+				#666666 95% );
+	}
+	 /*Izquierda*/
+	.ladosCubo:nth-of-type(3){
+		z-index: 60;
+		width: 800px;
+		transform: translateZ(400px)
+					translateX(-400px)
+					rotateY(90deg);
+		background-image: url(img/imgIzda.png);
+		opacity: .4;
+		/*background-color: rgba(156,108,17,.4);*/
+	}
+	 /*Arriba*/
+	.ladosCubo:nth-of-type(4){
+		z-index: 100;
+		height: 800px;
+		transform: translateZ(400px)
+					translateY(-400px)
+					rotateX(90deg);
+		background-color: rgba(166,69,130,.4);
+	}
+	 /*Derecha*/
+	.ladosCubo:nth-of-type(5){
+		z-index: 110;
+		width: 800px;
+		transform: translateZ(400px)
+					translateX(-100px)
+					rotateY(90deg);
+		background-image: url(img/imgDcha.png);
+		opacity: .4;
+		/*background-color: rgba(156,108,17,.4);*/
+	}
+		
+	.ball_3d{
+		z-index: 50;
+		position: relative;
+		width: 80px;
+		height: 80px;
+		border: 1px solid black;
+		border-radius: 50%;
+		left: calc(50% - 40px);
+		transform: translateZ(300px);
+		transform-style: preserve-3d;
+		-webkit-backface-visibility:visible;
+	}
+	.ball{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		border: 1px solid green;
+		border-radius: 50%;
+	}
+	section{
+		width: 80%;
+		height: 100px;
+		border: 0px solid black;
+		margin-top: 120px;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 150;
+	}
+	.botones{
+		width: 50px;
+		height: 50px;
+		background-color: #669900;
+		border-radius: 10px;
+		margin-left: 10px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		cursor: pointer;
+		box-shadow: inset 0 -.2em rgba(0,0,0,.6);
+		outline: none;
+		transition-duration: .2s;
+		will-change: transform;
+	}
+	.botones:active{
+		transform: scale(.95);
+	}
+	.play{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+	.play:before{
+		content: "";
+		border-style: solid;
+		border-width: 16px 0px 16px 20px;
+		border-color: transparent
+				transparent
+				transparent
+				black;
+		position: absolute;
+		top: 9px;
+		left: 15px;
+		border-radius: 5px;
+	}
+	.pause{
+		width: 10%;
+		height: 25px;
+		border-left: 8px solid black;
+		border-right: 8px solid black;
+	}
+	.stop{
+		width: 20px;
+		height: 20px;
+		background-color: black;
+	}
+	#reverse:before{
+		content: "\f04a";
+		position: absolute;
+		font-size: 2.4em;
+		top: 20%;
+		left: 20%;
+	}
+	#perspective:before{
+		content: "\f065";
+		font-size: 2.4em;
+
+	}
+	
+
+</style>
+<body>
+
+	<canvas id="canvas-basic"></canvas>
+
+	<header>
+		<h1>Juega con la perspectiva!!</h1>
+	</header>
+	<div class="contenedor" data-count="">
+		
+		<div class="ladosCubo"></div>
+		<div class="ladosCubo">
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+			<div class="suelo"></div>
+		</div>
+		<div class="ladosCubo"></div>
+		<div class="ladosCubo"></div>
+		<div class="ladosCubo"></div>
+		<div class="contador" id="contador"></div>
+
+ 		<div class="ball_3d">
+			<div class="ball" id="ball"></div>
+		</div>
+	</div>
+	<section>
+		<button class="botones" id="play">
+			<div class="play"></div>
+		</button>
+		<button class="botones">
+			<span class="pause" id="pause"></span>
+		</button>
+		<button class="botones" id="stop">
+			<span class="stop"></span>
+		</button>
+		<button class="botones">
+			<span id="reverse" class="fa fa-backward">
+			</span>
+		</button>
+		<button class="botones fa fa-expand" id="perspective"></button>
+	</section>
+
+	<script src="granim/dist/granim.js"></script>
+	<script>
+
+		var granimInstance = new Granim({
+  		 	element: '#canvas-basic',
+  			name: 'basic-gradient',
+  			direction: 'top-bottom', // 'diagonal', 'top-bottom', 'radial'
+  			opacity: [1, 1],
+  			isPausedWhenNotInView: true,
+  			states : {
+  		     "default-state": {
+  		         gradients: [
+  		             ['#AA076B', '#61045F'],
+  		             ['#02AAB0', '#00CDAC'],
+  		             ['#DA22FF', '#9733EE']
+  		         ]
+  		     }
+  		 	}
+		});
+
+		function $ (id) {
+			return document.getElementById(id); 
+		}
+
+		const $playButton = $('play');
+		const $pauseButton = $('pause');
+		const $stopButton = $('stop');
+		const $reverseButton = $('reverse');
+		const $perspectiveButton = $('perspective');
+		const $contador = $('contador');
+		const $contenedor = document.querySelector('.contenedor');
+		const $suelo = document.getElementsByClassName('suelo');
+		const $ball_3d = document.querySelector('.ball_3d');
+		const $ball = $('ball');
+		let ancho = $contenedor.offsetWidth;
+		let alto = $contenedor.offsetHeight;
+		
+
+		for( let k = 0; k < $suelo.length; k += 2 ){
+			$suelo[k].classList.add('black');
+		}
+		for( let y = 1; y < $suelo.length; y += 2 ){
+			$suelo[y].classList.add('white');
+		}
+
+		// Se crean las linas horizontales de la pelota
+		let divHorzontal = document.createElement('div');
+		let deg = 9;
+		for(let i = 0; i < 40; i++){
+			divHorzontal[i] = document.createElement('div');
+			divHorzontal[i].classList = 'horizontal';
+			divHorzontal[i].style.position = 'absolute';
+			divHorzontal[i].style.border = '1.4px solid #6633FF';
+			divHorzontal[i].style.background = 'rgba(0,0,0,.01)';
+			divHorzontal[i].style.width = '100%';
+			divHorzontal[i].style.height = '100%';
+			divHorzontal[i].style.borderRadius = '50%';
+			$ball_3d.appendChild(divHorzontal[i]);
+			divHorzontal[i].style.transform = `rotateX(${deg}deg)`;
+			deg += 4.5;
+		}
+		// Se crean las lineas verticales de la pelota.
+		let divVertical = document.createElement('div');
+		let degHor = 9;
+		for(let z = 0; z < 40; z++){
+			divVertical[z] = document.createElement('div');
+			divVertical[z].classList = 'vertical';
+			divVertical[z].style.position = 'absolute';
+			divVertical[z].style.border = '1.4px solid #006699';
+			divVertical[z].style.background = 'rgba(102,51,255,.05)';
+			divVertical[z].style.width = '100%';
+			divVertical[z].style.height = '100%';
+			divVertical[z].style.borderRadius = '50%';
+			$ball.appendChild(divVertical[z]);
+			divVertical[z].style.transform = `rotateY(${degHor}deg)`;
+			degHor += 4.5;
+		}
+
+		// Eventos de la animacion de la pelota
+		$stopButton.addEventListener("click", (event) => {
+			animation.cancel();
+		});
+		$playButton.addEventListener('click', (event) => {
+			animation.play();
+		});
+		
+		$reverseButton.addEventListener('click', (event) => {
+			animation.reverse();
+		});
+
+		// Distintas perspectivas al pultar el boton $perspectiveButton..
+		let distancia;
+		$perspectiveButton.addEventListener('click', (event) => {
+			if(distancia===undefined){
+				$contenedor.classList.add('pers2');
+				distancia = 2;
+				$contenedor.classList.remove('pers1')
+			}else if (distancia===2) {
+				$contenedor.classList.add('pers3');
+				distancia = 3;
+				$contenedor.classList.remove('pers2')
+			}else{
+				$contenedor.classList.add('pers1');
+				distancia = undefined;
+				$contenedor.classList.remove('pers3')
+			}
+
+		});
+
+    		// Contador de 5 segundos al pulsar el boton de pausa para continuar la animación.
+    		$pauseButton.addEventListener('click', (event) => {
+				animation.pause();
+				var count;
+				const intervalo = setInterval( () =>{
+	    			
+					$contador.classList.add('count');
+					$contador.classList.add('animacion');
+					// $contador.style.border = '3px solid #999999';
+					count = Number($contador.getAttribute('data-count')) || 6;
+	    			$contador.setAttribute('data-count', count - 1)
+	    			setTimeout( () => {
+	    				$contador.classList.remove('animacion');
+	    				$contador.classList.remove('count');
+	    				// $contador.style.border = '0px';
+	    			}, 900)
+	    			if(count === 1){
+	    				clearInterval( intervalo );
+	    				$contador.classList.remove('count');
+	    				$contador.classList.remove('animacion');
+	    				animation.play();
+	    			}
+					
+				}, 1000);
+				$playButton.addEventListener('click', (event) => {
+					animation.play();
+					clearInterval( intervalo );
+		    		$contador.classList.remove('count')
+		    		$contador.setAttribute('data-count', count = 6)
+			})
+				
+			})
+			
+	    // element.animate(keyframes = [], option = {})
+	    let time = 4000;
+	    const animation = $ball_3d.animate([
+	      // from
+	      {
+	        transform: `translateX(0) translateZ(${alto}px) rotateX(0) rotateY(0)`  
+	      },
+	      // to
+	      {
+	        transform: `translateX(${(ancho/2)-40}px) translateZ(${alto}px) translateY(${(alto/2)-80}px) rotateX(-95deg) rotateY(360deg)`
+	      },
+	      {
+	        transform: `translateX(0) translateY(${alto-80}px) translateZ(${alto}px) rotateX(45deg) rotateY(530deg)` 
+	      },
+	      {
+	      	transform: `translateX(-${(ancho/2)-40}px) translateY(${(alto/2)-40}px) translateZ(${alto}px) rotateX(-45deg) rotateY(800deg)`
+	      },
+	      {
+	      	transform: `translateX(0) translateZ(${alto}px) rotateX(0) rotateY(0)`
+	      }
+	    ],{
+	    	  duration: time,
+	    	  delay: 0,
+	    	  direction: 'normal',
+	    	  easing: 'linear',
+	    	  iterations: Infinity,
+	    	  // fill: 'forwards',
+	    	  iterationStart: 0,
+	    	  // endDelay: 3000,
+    	});
+    	//animation.cancel();
+
+	
+	</script>
+</body>
+</html>

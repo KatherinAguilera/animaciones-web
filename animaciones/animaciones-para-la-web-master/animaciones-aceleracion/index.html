@@ -1,0 +1,73 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Transformación rotación</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .container {
+      border: 1px solid red;
+      width: 100%
+    }
+    /*
+    .container:hover .cuadrado {
+      
+    }*/
+    .cuadrado {
+      /*Hacemos el cuadrado círcular*/
+      border-radius: 50%;
+      /*Centramos el contenido del círculo*/
+      display: flex;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      width: 200px;
+      height: 200px;
+      background: #7dc900;
+      margin: 20px;
+      animation-name: cuadrado;
+      animation-duration: 5s;
+      animation-delay: 1s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease;
+      animation-direction: alternate;
+      position: relative;
+      /*Trabajamos con la aceleración de la animación*/
+      animation-timing-function: ease; /*config por defecto*/
+      /* animation-timing-function: ease-in;
+      animation-timing-function: ease-out;
+      animation-timing-function: ease-in-out;
+      animation-timing-function: linear; */
+      /* configuración por pasos */
+      /* animation-timing-function: steps(10); si es menor es más brusco el salto */
+      animation-timing-function: cubic-bezier(1, -1, 1, -1); /*Ver http://cubic-bezier.com/*/
+    }
+    @keyframes cuadrado {
+      0% {
+        left: 0;
+      }
+      100% {
+        /*Rebote*/
+        left: calc(100% - 200px - 40px);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="cuadrado">
+      Hello world!
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Platzi logo loader</title>
+  <style>
+  body{
+    margin: 0;
+    background: #234050;
+    align-content: center;
+  }
+    .container {
+     vertical-align: middle;
+    }
+    .platzi {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      margin: 40px auto;
+      /*background: red;*/
+      transform: rotate(45deg);
+
+      animation-name: platzi-base;
+      animation-duration: 3.5s;
+      animation-iteration-count: infinite;
+    }
+
+    .platzi-left {
+      width: 100%;
+      height: 65%;
+      border: 20px solid #97c93e; /*top right left bottom*/
+      border-radius: 20px 20px 0 0;
+      border-bottom: none;
+      box-sizing: border-box;
+      position: relative;
+      top: 1px;
+      animation-name: platzi-left;
+      animation-duration:  3.5s;
+      animation-iteration-count: infinite;
+      animation-delay: 1s;
+    }
+
+    .platzi-right {
+      width: 100%;
+      height: 35%;
+      border: 20px solid #97c93e;
+      border-top: none;
+      box-sizing: border-box;
+      border-radius: 0 0 20px 20px;
+
+    }
+
+    @keyframes platzi-base {
+      0% {
+        opacity: 0;
+        transform: scale(.3) rotate(0deg);
+      }
+      30% {
+        opacity: 1;
+        transform: scale(.8) rotate(405deg);
+      }
+      80% {
+        opacity: 1;
+        transform: scale(.8) rotate(405deg);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(.3) rotate(0deg);
+      }
+    }
+
+    @keyframes platzi-left {
+      0% {
+        width: 100%;
+      }
+      20% {
+        width: 80%;
+      }
+      50% {
+        width: 80%;
+      }
+      70% {
+        width: 100%;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+    /*..................*/
+
+    .cargando {
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+    }
+    .punto.uno {
+    animation-name: puntoUno;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+}
+@keyframes puntoUno {
+  0% {
+      opacity: 0;
+      background-color: #b16d82;
+      transform: scale(.2);
+  }
+  30% {
+      opacity: 1;
+      background-color: #b16d82;
+      transform: scale(1);
+  }
+  100% {
+      opacity: 1;
+      background-color: #b16d6d;
+      transform: scale(1.4);
+  }
+}
+.punto.dos {
+    animation-name: puntoDos;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+}
+@keyframes puntoDos {
+  0% {
+      opacity: 0;
+      background-color: #ac5972;
+      transform: scale(.3);
+  }
+  45% {
+      opacity: 1;
+      background-color: #ac5972;
+      transform: scale(1.1);
+  }
+  100% {
+      opacity: 1;
+      background-color: #ac595b;
+      transform: scale(1.5);
+  }
+
+}
+
+.punto.tre {
+    animation-name: puntoTres;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+}
+@keyframes puntoTres {
+  0% {
+      opacity: 0;
+      background-color: #aa4866;
+      transform: scale(.4);
+  }
+  60% {
+      opacity: 1;
+      background-color: #aa4866;
+      transform: scale(1.2);
+  }
+  100% {
+      opacity: 1;
+      background-color: #aa4848;
+      transform: scale(1.6);
+  }
+
+}
+
+.punto {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 8px;
+}
+.uno {
+    margin-bottom: 50px;
+}
+  </style>
+</head>
+<body>
+  <main class="container">
+  <div class="platzi">
+    <div class="platzi-left"></div>
+    <div class="platzi-right"></div>
+  </div>
+  <div class="cargando">
+           <div class="punto uno"></div>
+           <div class="punto dos"></div>
+           <div class="punto tre"></div>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,122 @@
+body{
+	background: peru;
+	margin:0;
+}
+
+.container1 {
+	background: white;
+	border: 5px solid black;
+	width: 100%;
+	height: 100px;
+}
+
+.container2 {
+	background: white;
+	border: 5px solid black;
+	width: 100px;
+	height: 200px;
+	position: absolute;
+	right: 0;
+	top:105px;
+	border-top: 5px solid white;
+	border-bottom: 5px solid white;
+	z-index: 2;
+
+
+
+}
+
+.container1.b {
+	position: absolute;
+	top:309px;
+}
+
+
+.container2.b {
+	position: absolute;
+	left: 0;
+	top:413px;
+	height: 135px;
+	z-index: 2;
+	
+}
+
+.container1.c {
+	position: absolute;
+	bottom: 0;
+}
+
+
+.bola {
+	height: 90px;
+	width: 90px;
+	background: green;
+	border-radius: 50%;
+	margin: 2px 2px;
+	position: relative;
+	z-index: 3;
+
+}
+
+
+.container1 .bola {
+	animation: mov1;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+
+
+}
+
+@keyframes mov1 {
+	0% {
+		left:0;
+	}
+
+	100% {
+		left: calc(100% - 105px);
+	}
+}
+
+@keyframes mov2 {
+	0% {
+		transform:translateY(0px);
+	}
+
+	100% {
+		transform:translateY(315px);
+	}
+}
+
+@keyframes mov3 {
+	0% {
+		left: calc(100% - 105px);
+	}
+
+	100% {
+		left:0;
+	}
+}
+
+@keyframes mov4 {
+	0% {
+		transform:translateY(0);
+	}
+
+	100%{
+		
+		transform:translateY(240px);
+	}
+
+}
+
+@keyframes mov5 {
+	0% {
+		top:555px;
+		left:0;
+	}
+
+	100% {
+		top: 555px;
+		left: calc(100% - 105px);
+	}
+}
